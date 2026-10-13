@@ -1,0 +1,29 @@
+{
+  "name": "jitendra-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Full-stack personal portfolio platform for Dhulipalla Jitendra Varma",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client",
+    "start": "npm run start -w server",
+    "test": "npm run test -w server",
+    "typecheck": "npm run typecheck -w client",
+    "seed": "npm run seed -w server",
+    "simulate-traffic": "npm run simulate-traffic -w server",
+    "screenshots": "node scripts/screenshots.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "playwright": "^1.64.0"
+  }
+}
