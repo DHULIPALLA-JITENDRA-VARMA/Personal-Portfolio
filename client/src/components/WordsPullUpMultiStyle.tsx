@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import { EASE_EXPO, cn } from '../lib/design';
 
@@ -18,6 +18,7 @@ interface Props {
 export function WordsPullUpMultiStyle({ segments, className, align = 'center' }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '-40px' });
+  const reduceMotion = useReducedMotion();
   const words = segments.flatMap((segment) =>
     segment.text.split(' ').filter(Boolean).map((word) => ({ word, className: segment.className })),
   );
@@ -31,7 +32,7 @@ export function WordsPullUpMultiStyle({ segments, className, align = 'center' }:
         <motion.span
           key={`${word}-${i}`}
           className={cn('inline-block', wordClass)}
-          initial={{ y: 20, opacity: 0 }}
+          initial={reduceMotion ? false : { y: 20, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : undefined}
           transition={{ duration: 0.7, delay: Math.min(i * 0.08, 1.6), ease: EASE_EXPO }}
         >

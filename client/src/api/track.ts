@@ -26,6 +26,14 @@ export function track(type: EventType, path: string, ref = document.referrer): v
   }).catch(() => undefined);
 }
 
-export const trackPageView = (path: string) => track('page_view', path);
+// Guards against the same view being reported twice in quick succession (double-invoked effects,
+// re-renders): one page_view per path per second.
+let lastView = { path: '', at: 0 };
+export function trackPageView(path: string) {
+  const now = Date.now();
+  if (lastView.path === path && now - lastView.at < 1000) return;
+  lastView = { path, at: now };
+  track('page_view', path);
+}
 export const trackProjectClick = (slug: string) => track('project_click', `/projects/${slug}`, window.location.pathname);
 export const trackOutbound = (url: string) => track('outbound_click', url, window.location.pathname);

@@ -66,7 +66,7 @@ export default function ProfilePage() {
           <div className="flex items-center justify-between gap-4 rounded-xl border border-white/10 px-4 py-3">
             <div>
               <p className="text-sm text-cream">Show phone number publicly</p>
-              <p className="mt-0.5 text-xs text-gray-500">While off, the number never leaves the server.</p>
+              <p className="mt-0.5 text-xs text-muted">While off, the number never leaves the server.</p>
             </div>
             <Toggle label="Show phone number publicly" checked={form.show_phone} onChange={(v) => set('show_phone', v)} />
           </div>

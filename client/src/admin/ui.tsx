@@ -32,6 +32,9 @@ export function useLoad<T>(loader: () => Promise<T>, deps: unknown[] = []) {
 }
 
 export function PageHeader({ title, description, actions }: { title: string; description?: string; actions?: ReactNode }) {
+  useEffect(() => {
+    document.title = `${title} · Admin`;
+  }, [title]);
   return (
     <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div>
@@ -62,7 +65,7 @@ export function Field({ label, hint, error, children, className }: { label: stri
     <label className={cn('block', className)}>
       <span className="label">{label}</span>
       {children}
-      {hint && !error && <span className="mt-1.5 block text-xs text-gray-500">{hint}</span>}
+      {hint && !error && <span className="mt-1.5 block text-xs text-muted">{hint}</span>}
       {error && <span className="mt-1.5 block text-xs text-danger">{error}</span>}
     </label>
   );
@@ -78,7 +81,7 @@ export function Toggle({ checked, onChange, label, disabled }: { checked: boolea
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cn(
-        'relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-200 disabled:opacity-50',
+        'relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-200 after:absolute after:-inset-2.5 disabled:opacity-50',
         checked ? 'bg-primary' : 'bg-white/15',
       )}
     >
@@ -118,7 +121,7 @@ export function IconButton({ label, onClick, disabled, children }: { label: stri
       title={label}
       disabled={disabled}
       onClick={onClick}
-      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-gray-400 transition-colors duration-200 hover:border-white/30 hover:text-cream disabled:cursor-not-allowed disabled:opacity-30"
+      className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-gray-400 transition-colors duration-200 hover:border-white/30 hover:text-cream after:absolute after:-inset-1.5 disabled:cursor-not-allowed disabled:opacity-30"
     >
       {children}
     </button>

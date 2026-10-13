@@ -32,7 +32,7 @@ function ProjectCard({ project, index, wide }: { project: Project; index: number
       <article className={cn('grid h-full overflow-hidden rounded-2xl bg-card', wide && 'lg:grid-cols-2')}>
         <div className="flex min-h-[300px] flex-col p-6 md:p-8">
           <div className="mb-8 flex items-center justify-between gap-4">
-            <span className="text-xs tabular-nums text-gray-500">{number}</span>
+            <span className="text-xs tabular-nums text-muted">{number}</span>
             {project.featured && <span className="chip border-primary/30 text-primary">Featured</span>}
           </div>
 
@@ -53,7 +53,7 @@ function ProjectCard({ project, index, wide }: { project: Project; index: number
 
           <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-8">
             <Link to={to} onClick={onOpen} className="link-arrow" aria-label={`View project: ${project.title}`}>
-              View project <ArrowRight className="h-4 w-4 -rotate-45" aria-hidden />
+              View project <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
             <ProjectLinks project={project} />
           </div>

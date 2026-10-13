@@ -11,6 +11,7 @@ import { PillButton } from '../components/PillButton';
 import { Seo } from '../components/Seo';
 import { WordsPullUp } from '../components/WordsPullUp';
 import { trackOutbound } from '../api';
+import { usePageTitle } from '../lib/usePageTitle';
 import { usePortfolio } from '../lib/usePortfolio';
 import { Footer } from '../sections/Footer';
 
@@ -39,6 +40,8 @@ export default function ProjectDetail() {
       });
     return () => controller.abort();
   }, [slug]);
+
+  usePageTitle(state.status === 'missing' ? 'Project not found' : null, state.status === 'missing');
 
   const html = useMemo(() => (state.status === 'ready' ? renderMarkdown(state.project.description_md) : ''), [state]);
 
@@ -131,7 +134,7 @@ export default function ProjectDetail() {
                       <span className="block text-xl text-cream md:text-2xl">{p.title}.</span>
                       {p.tagline && <span className="mt-1.5 block text-sm text-gray-400">{p.tagline}</span>}
                     </span>
-                    <ArrowRight className="h-5 w-5 shrink-0 -rotate-45 text-gray-500 transition-colors duration-200 group-hover:text-cream" aria-hidden />
+                    <ArrowRight className="h-5 w-5 shrink-0 text-muted transition-colors duration-200 group-hover:text-cream" aria-hidden />
                   </Link>
                 </li>
               ))}

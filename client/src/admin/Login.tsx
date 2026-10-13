@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { ApiError } from '../api';
 import { Spinner } from '../components/PageState';
@@ -12,6 +12,11 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    document.title = 'Sign in · Admin';
+  }, []);
 
   if (state.status === 'authenticated') {
     const from = (location.state as { from?: string } | null)?.from;
@@ -29,6 +34,8 @@ export default function Login() {
         err instanceof ApiError && err.status === 400 ? 'Enter your username and password.' : (err as Error).message,
       );
       setBusy(false);
+      // The button was disabled while signing in, which drops focus; put it back where the fix is.
+      requestAnimationFrame(() => passwordRef.current?.select());
     }
   }
 
@@ -46,7 +53,7 @@ export default function Login() {
               <input className="input" name="username" autoComplete="username" autoCapitalize="none" required value={username} onChange={(e) => setUsername(e.target.value)} />
             </Field>
             <Field label="Password">
-              <input className="input" name="password" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+              <input ref={passwordRef} className="input" name="password" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
             </Field>
           </div>
           <button type="submit" className="btn-primary mt-8 w-full py-3" disabled={busy}>
@@ -54,7 +61,7 @@ export default function Login() {
             {busy ? 'Signing in' : 'Sign in'}
           </button>
         </form>
-        <p className="mt-6 text-center text-xs text-gray-500">
+        <p className="mt-6 text-center text-xs text-muted">
           <Link to="/" className="transition-colors duration-200 hover:text-cream">
             ← Back to the portfolio
           </Link>

@@ -5,8 +5,8 @@ import { OutboundLink } from '../components/OutboundLink';
 
 export function Footer({ profile }: { profile: Profile }) {
   return (
-    <footer className="bg-black px-4 pb-8 pt-10 md:px-6">
-      <div className="mx-auto max-w-7xl">
+    <footer className="bg-black pb-8 pt-10">
+      <div className="mx-auto max-w-7xl px-4 md:px-6">
         <div className="flex flex-col gap-8 border-t border-white/10 pt-10 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-2xl text-cream md:text-3xl">{profile.name}</p>
@@ -36,15 +36,15 @@ export function Footer({ profile }: { profile: Profile }) {
             )}
           </ul>
         </div>
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 text-xs text-gray-500">
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 text-xs text-muted">
           <p>
             © {new Date().getFullYear()} {profile.name}
           </p>
           <div className="flex items-center gap-6">
-            <Link to="/admin" className="transition-colors duration-200 hover:text-cream">
+            <Link to="/admin" className="-my-3 py-3 transition-colors duration-200 hover:text-cream">
               Admin
             </Link>
-            <a href="#top" className="inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-cream">
+            <a href="#top" className="-my-3 inline-flex items-center gap-1.5 py-3 transition-colors duration-200 hover:text-cream">
               Back to top <ArrowUp className="h-3.5 w-3.5" aria-hidden />
             </a>
           </div>

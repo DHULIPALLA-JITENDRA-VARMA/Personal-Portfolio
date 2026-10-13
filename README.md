@@ -303,7 +303,7 @@ Then edit `.env`:
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `PORT` | `4000` | Server port |
-| `NODE_ENV` | `development` | `production` enables static serving, secure cookies and proxy trust |
+| `NODE_ENV` | set by the npm scripts | `production` enables static serving, secure cookies and proxy trust. Leave it out of `.env`: Vite reads that file too, and `development` there would produce a development client build |
 | `DB_PATH` | `./data/portfolio.db` | SQLite file |
 | `UPLOAD_DIR` | `./uploads` | Uploaded images and resume |
 | `SERVER_SECRET` | required | Signs sessions and salts analytics hashes |
@@ -415,6 +415,9 @@ The dashboard and inbox screenshots show demo data from `npm run simulate-traffi
 - **Motion is progressive.** Animations run once on entry, `prefers-reduced-motion` disables transforms and the background video, and the scroll-reveal paragraph exposes plain text to screen readers.
 - **Chart colours were validated** for colour-blind separation and contrast on the panel colour, and each chart has one y-axis.
 - **The resume link is hidden until a PDF exists**, instead of offering a link that returns 404.
+- **The nav pill follows the visitor.** It hangs from the hero as designed, and a copy drops in from the top of the viewport once the hero has scrolled away, so a long single page is never without navigation.
+- **Small grey text uses a warm neutral** (`text-muted`, cream at 60%) instead of Tailwind's blue-grey, which keeps 4.5:1 contrast on every surface. The large two-tone section subtitles keep the grey from the design reference.
+- **A UI review pass was run with Playwright** at five viewports after the build. Its findings (a development-mode client bundle caused by `NODE_ENV` in `.env`, deep links landing off-target after the GitHub list loaded, low-contrast grey text, small tap targets, focus loss after form actions, shared page titles) were fixed and re-verified.
 - **Destructive actions use a two-step button** ("Delete" then "Confirm?") rather than a blocking browser dialog.
 
 ## Challenges

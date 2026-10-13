@@ -95,7 +95,7 @@ try {
     });
     await page.waitForTimeout(1200);
   };
-  const scrollTo = async (page, selector, offset = 24) => {
+  const scrollTo = async (page, selector, offset = 72) => {
     await page.evaluate(
       ([sel, off]) => window.scrollTo(0, document.querySelector(sel).getBoundingClientRect().top + window.scrollY - off),
       [selector, offset],

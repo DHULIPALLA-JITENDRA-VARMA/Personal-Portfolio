@@ -13,7 +13,7 @@ function AnimatedLetter({ char, index, total, progress }: { char: string; index:
 export function ScrollRevealText({ text, className }: { text: string; className?: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
   const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.85', 'end 0.5'] });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.95', 'end 0.8'] });
 
   if (reduceMotion) return <p className={className}>{text}</p>;
 

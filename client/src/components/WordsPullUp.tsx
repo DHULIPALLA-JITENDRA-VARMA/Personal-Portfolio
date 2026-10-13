@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import { EASE_EXPO, cn } from '../lib/design';
 
@@ -14,6 +14,7 @@ interface Props {
 export function WordsPullUp({ text, className, showAsterisk = false, delay = 0 }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
+  const reduceMotion = useReducedMotion();
   const words = text.split(' ').filter(Boolean);
 
   return (
@@ -24,7 +25,7 @@ export function WordsPullUp({ text, className, showAsterisk = false, delay = 0 }
           <motion.span
             key={`${word}-${i}`}
             className="relative inline-block"
-            initial={{ y: 20, opacity: 0 }}
+            initial={reduceMotion ? false : { y: 20, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : undefined}
             transition={{ duration: 0.7, delay: delay + i * 0.08, ease: EASE_EXPO }}
           >

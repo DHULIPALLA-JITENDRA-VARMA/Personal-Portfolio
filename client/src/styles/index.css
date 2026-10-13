@@ -19,7 +19,7 @@
     text-rendering: optimizeLegibility;
   }
   section[id] {
-    scroll-margin-top: 1.5rem;
+    scroll-margin-top: 4.5rem; /* clears the floating nav pill */
   }
   ::selection {
     background: rgb(var(--color-primary));
@@ -43,19 +43,20 @@
     font-family: var(--font-serif);
   }
   .eyebrow {
-    @apply text-[10px] uppercase tracking-[0.2em] text-primary sm:text-xs;
+    @apply text-[11px] uppercase tracking-[0.2em] text-primary sm:text-xs;
   }
   .chip {
     @apply inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-[11px] text-primary/80 sm:text-xs;
   }
   .link-arrow {
-    @apply inline-flex items-center gap-1.5 text-sm text-cream transition-colors duration-200 hover:text-white;
+    /* py/-my enlarges the tap target to 44px without changing the layout */
+    @apply -my-3 inline-flex items-center gap-1.5 py-3 text-sm text-cream transition-colors duration-200 hover:text-white;
   }
   .label {
     @apply mb-1.5 block text-xs text-gray-400;
   }
   .input {
-    @apply w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-cream transition-colors duration-200 placeholder:text-gray-600 hover:border-white/20 focus:border-primary/70 focus:outline-none focus:ring-1 focus:ring-primary/50;
+    @apply w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-base text-cream transition-colors duration-200 sm:text-sm placeholder:text-gray-600 hover:border-white/20 focus:border-primary/70 focus:outline-none focus:ring-1 focus:ring-primary/50;
   }
   .input[aria-invalid='true'] {
     @apply border-danger/70 focus:border-danger focus:ring-danger/50;
@@ -71,6 +72,10 @@
   }
   .btn-danger {
     @apply btn border border-danger/30 text-danger hover:bg-danger/10;
+  }
+  /* Small secondary text. A warm neutral that keeps >= 4.5:1 on every surface. */
+  .text-muted {
+    @apply text-primary/60;
   }
   .panel {
     @apply rounded-2xl border border-white/[0.06] bg-surface;

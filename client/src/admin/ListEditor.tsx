@@ -106,7 +106,7 @@ export function ListEditor<T extends { id: number }>({ title, singular, descript
       {editing && (
         <form onSubmit={onSubmit} className="panel mb-6 max-w-3xl space-y-5 p-6 md:p-8" aria-label={`${editing.id === null ? 'Add' : 'Edit'} ${singular}`}>
           <h2 className="text-xl text-cream">{editing.id === null ? `Add ${singular}` : `Edit ${singular}`}</h2>
-          {fields.map((f) => {
+          {fields.map((f, fieldIndex) => {
             const common = {
               className: 'input',
               required: f.required,
@@ -118,7 +118,7 @@ export function ListEditor<T extends { id: number }>({ title, singular, descript
                 {f.type === 'textarea' || f.type === 'lines' ? (
                   <textarea {...common} rows={f.type === 'lines' ? 5 : 3} className="input resize-y" />
                 ) : (
-                  <input {...common} type={f.type === 'url' ? 'url' : 'text'} placeholder={f.type === 'url' ? 'https://' : undefined} />
+                  <input {...common} autoFocus={fieldIndex === 0} type={f.type === 'url' ? 'url' : 'text'} placeholder={f.type === 'url' ? 'https://' : undefined} />
                 )}
               </Field>
             );
@@ -150,7 +150,7 @@ export function ListEditor<T extends { id: number }>({ title, singular, descript
               </div>
               <div className="min-w-0 flex-1 basis-48">
                 <p className="truncate text-sm text-cream">{primary(item)}</p>
-                {secondary && secondary(item) && <p className="truncate text-xs text-gray-500">{secondary(item)}</p>}
+                {secondary && secondary(item) && <p className="truncate text-xs text-muted">{secondary(item)}</p>}
               </div>
               <div className="flex gap-2">
                 <button type="button" className="btn-ghost" onClick={() => { open(item); window.scrollTo({ top: 0 }); }}>

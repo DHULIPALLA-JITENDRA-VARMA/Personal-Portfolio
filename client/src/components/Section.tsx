@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef, type ReactNode } from 'react';
 import { EASE_CARD, cn } from '../lib/design';
 import { WordsPullUpMultiStyle } from './WordsPullUpMultiStyle';
@@ -34,11 +34,12 @@ export function SectionHeader({ eyebrow, title, subtitle }: { eyebrow: string; t
 export function Reveal({ children, index = 0, className }: { children: ReactNode; index?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
+  const reduceMotion = useReducedMotion();
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={reduceMotion ? false : { opacity: 0, scale: 0.95 }}
       animate={inView ? { opacity: 1, scale: 1 } : undefined}
       transition={{ duration: 0.8, delay: Math.min(index, 5) * 0.15, ease: EASE_CARD }}
     >

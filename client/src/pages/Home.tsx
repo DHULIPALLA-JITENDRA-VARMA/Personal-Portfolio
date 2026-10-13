@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { PageState } from '../components/PageState';
 import { Seo } from '../components/Seo';
@@ -18,11 +18,26 @@ export default function Home() {
   const { hash } = useLocation();
 
   // Arriving from another route with /#section: scroll once the sections exist.
+  const interacted = useRef(false);
+  const scrollToHash = useCallback(() => {
+    if (!hash || interacted.current) return;
+    requestAnimationFrame(() => document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'auto' }));
+  }, [hash]);
+
   useEffect(() => {
-    if (!data || !hash) return;
-    const id = requestAnimationFrame(() => document.getElementById(hash.slice(1))?.scrollIntoView());
-    return () => cancelAnimationFrame(id);
-  }, [data, hash]);
+    if (data) scrollToHash();
+  }, [data, scrollToHash]);
+
+  // Late-loading content (the GitHub list) shifts the page, so the target is re-anchored once it
+  // settles - unless the visitor has already started scrolling on their own.
+  useEffect(() => {
+    const stop = () => {
+      interacted.current = true;
+    };
+    const events = ['wheel', 'touchmove', 'keydown', 'mousedown'] as const;
+    events.forEach((e) => window.addEventListener(e, stop, { passive: true, once: true }));
+    return () => events.forEach((e) => window.removeEventListener(e, stop));
+  }, []);
 
   if (loading) return <PageState title="Loading portfolio" loading />;
   if (error || !data) {
@@ -48,7 +63,7 @@ export default function Home() {
         <About profile={profile} />
         <Skills skills={data.skills} />
         <Projects projects={data.projects} />
-        <Repos githubUrl={profile.github_url} />
+        <Repos githubUrl={profile.github_url} onSettled={scrollToHash} />
         <ExperienceSection experience={data.experience} />
         <EducationSection education={data.education} />
         <Credentials certifications={data.certifications} achievements={data.achievements} />

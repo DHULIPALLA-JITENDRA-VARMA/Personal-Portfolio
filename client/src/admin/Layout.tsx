@@ -34,10 +34,6 @@ export default function Layout() {
     return () => window.removeEventListener(UNREAD_CHANGED, refreshUnread);
   }, [refreshUnread, pathname]);
 
-  useEffect(() => {
-    document.title = 'Admin · Portfolio';
-  }, []);
-
   return (
     <div className="min-h-screen bg-black lg:grid lg:grid-cols-[15rem_1fr]">
       <aside className="border-b border-white/[0.06] bg-surface lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-b-0 lg:border-r">
@@ -45,7 +41,7 @@ export default function Layout() {
           <p className="text-lg text-cream">
             Portfolio <span className="font-serif italic text-primary">admin</span>
           </p>
-          <p className="text-xs text-gray-500 lg:mt-1">{state.status === 'authenticated' && `Signed in as ${state.username}`}</p>
+          <p className="text-xs text-muted lg:mt-1">{state.status === 'authenticated' && `Signed in as ${state.username}`}</p>
         </div>
 
         <nav aria-label="Admin" className="overflow-x-auto px-3 pb-3 lg:flex-1 lg:overflow-y-auto lg:pb-0">

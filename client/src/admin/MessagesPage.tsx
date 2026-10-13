@@ -17,7 +17,7 @@ const PAGE_SIZE = 10;
 const badge: Record<MessageStatus, string> = {
   new: 'bg-primary text-black',
   read: 'bg-white/10 text-gray-300',
-  archived: 'border border-white/10 text-gray-500',
+  archived: 'border border-white/10 text-muted',
 };
 
 export default function MessagesPage() {
@@ -51,7 +51,7 @@ export default function MessagesPage() {
                 type="button"
                 aria-pressed={status === f.value}
                 onClick={() => { setStatus(f.value); setPage(1); }}
-                className={cn('rounded-full px-3.5 py-1.5 text-xs transition-colors duration-200', status === f.value ? 'bg-primary font-bold text-black' : 'text-gray-400 hover:text-cream')}
+                className={cn('rounded-full px-4 py-2.5 text-xs transition-colors duration-200', status === f.value ? 'bg-primary font-bold text-black' : 'text-gray-400 hover:text-cream')}
               >
                 {f.label}
               </button>
@@ -77,7 +77,7 @@ export default function MessagesPage() {
                     {m.name} · <a href={`mailto:${m.email}`} className="underline decoration-white/20 underline-offset-2 hover:text-cream">{m.email}</a>
                   </p>
                 </div>
-                <time dateTime={m.created_at} className="text-xs tabular-nums text-gray-500">{formatDateTime(m.created_at)}</time>
+                <time dateTime={m.created_at} className="text-xs tabular-nums text-muted">{formatDateTime(m.created_at)}</time>
               </div>
               <p className="mt-4 whitespace-pre-wrap break-words text-sm leading-relaxed text-primary/80">{m.body}</p>
               <div className="mt-5 flex flex-wrap gap-2">

@@ -72,8 +72,9 @@ export function Contact({ profile }: { profile: Profile }) {
     );
 
   return (
-    <section id="contact" className="bg-black px-4 py-10 md:px-6 md:py-16">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-12 gap-y-10 rounded-2xl bg-surface p-6 sm:p-10 md:rounded-[2rem] lg:grid-cols-2 lg:p-16">
+    <section id="contact" className="bg-black py-10 md:py-16">
+      <div className="mx-auto max-w-7xl px-4 md:px-6">
+      <div className="grid grid-cols-1 gap-x-12 gap-y-10 rounded-2xl bg-surface p-6 sm:p-10 md:rounded-[2rem] lg:grid-cols-2 lg:p-16">
         <div className="flex flex-col">
           <p className="eyebrow mb-6">Contact</p>
           <h2 className="text-3xl leading-[1] text-cream sm:text-4xl md:text-5xl">
@@ -121,7 +122,7 @@ export function Contact({ profile }: { profile: Profile }) {
             <span className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-black">
               <Check className="h-5 w-5" aria-hidden />
             </span>
-            <h3 className="text-2xl text-cream">Message sent.</h3>
+            <h3 ref={(el) => el?.focus()} tabIndex={-1} className="text-2xl text-cream outline-none">Message sent.</h3>
             <p className="mt-2 text-sm text-gray-400">Thank you for reaching out. I will get back to you soon.</p>
             <button type="button" className="link-arrow mt-8 underline decoration-primary/40 underline-offset-4" onClick={() => setStatus({ kind: 'idle' })}>
               Send another message
@@ -143,7 +144,7 @@ export function Contact({ profile }: { profile: Profile }) {
             </div>
             <div>
               <label htmlFor={`${uid}-subject`} className="label">
-                Subject <span className="text-gray-600">(optional)</span>
+                Subject <span className="text-muted">(optional)</span>
               </label>
               <input {...field('subject')} onChange={(e) => set('subject', e.target.value)} type="text" maxLength={CONTACT_LIMITS.subject[1]} className="input" />
               {errorText('subject')}
@@ -151,7 +152,7 @@ export function Contact({ profile }: { profile: Profile }) {
             <div>
               <div className="flex items-baseline justify-between">
                 <label htmlFor={`${uid}-body`} className="label">Message</label>
-                <span className="text-[11px] tabular-nums text-gray-500" aria-hidden>
+                <span className="text-[11px] tabular-nums text-muted" aria-hidden>
                   {values.body.length}/{CONTACT_LIMITS.body[1]}
                 </span>
               </div>
@@ -178,6 +179,7 @@ export function Contact({ profile }: { profile: Profile }) {
             </PillButton>
           </form>
         )}
+      </div>
       </div>
     </section>
   );

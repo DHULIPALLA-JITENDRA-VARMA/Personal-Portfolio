@@ -7,7 +7,7 @@ import { formatDate } from '../lib/format';
 
 type State = { status: 'loading' } | { status: 'error' } | { status: 'ready'; data: ReposResponse };
 
-export function Repos({ githubUrl }: { githubUrl: string }) {
+export function Repos({ githubUrl, onSettled }: { githubUrl: string; onSettled?: () => void }) {
   const [state, setState] = useState<State>({ status: 'loading' });
 
   useEffect(() => {
@@ -17,6 +17,11 @@ export function Repos({ githubUrl }: { githubUrl: string }) {
       .catch((err: Error) => err.name !== 'AbortError' && setState({ status: 'error' }));
     return () => controller.abort();
   }, []);
+
+  // The list replaces a shorter skeleton, which moves every section below it.
+  useEffect(() => {
+    if (state.status !== 'loading') onSettled?.();
+  }, [state.status, onSettled]);
 
   const profileLink = githubUrl && (
     <OutboundLink href={githubUrl} className="link-arrow">
@@ -62,7 +67,7 @@ export function Repos({ githubUrl }: { githubUrl: string }) {
                   <div className="min-w-0">
                     <h3 className="flex items-center gap-2 break-all text-base text-cream md:text-lg">
                       {repo.name}
-                      <ArrowRight className="h-4 w-4 shrink-0 -rotate-45 text-gray-500 transition-colors duration-200 group-hover:text-cream" aria-hidden />
+                      <ArrowRight className="h-4 w-4 shrink-0 -rotate-45 text-muted transition-colors duration-200 group-hover:text-cream" aria-hidden />
                     </h3>
                     {repo.description && <p className="mt-1 line-clamp-2 text-sm text-gray-400">{repo.description}</p>}
                   </div>
@@ -95,7 +100,7 @@ export function Repos({ githubUrl }: { githubUrl: string }) {
       </div>
 
       {state.status === 'ready' && state.data.stale && (
-        <p className="mt-3 text-xs text-gray-500">GitHub is unreachable right now, so this list may be slightly out of date.</p>
+        <p className="mt-3 text-xs text-muted">GitHub is unreachable right now, so this list may be slightly out of date.</p>
       )}
     </Section>
   );

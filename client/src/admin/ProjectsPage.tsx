@@ -51,7 +51,7 @@ function ProjectForm({ initial, onDone, onCancel }: { initial: FormState; onDone
       <Notice>{error}</Notice>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <Field label="Title" error={errors.title}>
-          <input className="input" required value={form.title} onChange={(e) => set('title', e.target.value)} />
+          <input className="input" required autoFocus value={form.title} onChange={(e) => set('title', e.target.value)} />
         </Field>
         <Field label="Slug" error={errors.slug} hint={form.id === null ? 'Leave empty to generate it from the title.' : 'Changing this changes the public URL.'}>
           <input className="input" value={form.slug} onChange={(e) => set('slug', e.target.value)} />
@@ -165,7 +165,7 @@ export default function ProjectsPage() {
       {projects && projects.length > 0 && (
         <div className="panel overflow-x-auto">
           <table className="w-full min-w-[720px] text-left text-sm">
-            <thead className="text-xs text-gray-500">
+            <thead className="text-xs text-muted">
               <tr className="border-b border-white/[0.06]">
                 <th scope="col" className="px-4 py-3 font-normal">Order</th>
                 <th scope="col" className="px-4 py-3 font-normal">Project</th>
@@ -192,11 +192,11 @@ export default function ProjectsPage() {
                       {p.image ? (
                         <img src={p.image} alt="" className="h-11 w-16 shrink-0 rounded-lg object-cover" />
                       ) : (
-                        <span className="flex h-11 w-16 shrink-0 items-center justify-center rounded-lg bg-white/5 text-[10px] text-gray-500">No image</span>
+                        <span className="flex h-11 w-16 shrink-0 items-center justify-center rounded-lg bg-white/5 text-[10px] text-muted">No image</span>
                       )}
                       <div className="min-w-0">
                         <p className="truncate text-cream">{p.title}</p>
-                        <p className="truncate text-xs text-gray-500">/projects/{p.slug}</p>
+                        <p className="truncate text-xs text-muted">/projects/{p.slug}</p>
                       </div>
                     </div>
                   </td>
@@ -225,7 +225,7 @@ export default function ProjectsPage() {
           </table>
         </div>
       )}
-      <p className="mt-3 text-xs text-gray-500">Images: JPG, PNG or WebP up to 2MB.</p>
+      <p className="mt-3 text-xs text-muted">Images: JPG, PNG or WebP up to 2MB.</p>
     </>
   );
 }

@@ -27,7 +27,7 @@ export function Skills({ skills }: { skills: SkillGroup[] }) {
           <Reveal key={group.category} index={i + 1} className="flex min-h-[240px] flex-col rounded-2xl bg-card p-6 lg:min-h-[280px]">
             <div className="mb-6 flex items-baseline justify-between gap-4">
               <h3 className="text-lg text-cream md:text-xl">{group.category}.</h3>
-              <span className="text-xs tabular-nums text-gray-500">{String(i + 1).padStart(2, '0')}</span>
+              <span className="text-xs tabular-nums text-muted">{String(i + 1).padStart(2, '0')}</span>
             </div>
             <ul className="mt-auto space-y-2.5">
               {group.items.map((skill) => (

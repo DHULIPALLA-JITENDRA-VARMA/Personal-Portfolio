@@ -61,7 +61,7 @@ export default function ResumePage() {
             </>
           )}
         </div>
-        <p className="mt-5 text-xs text-gray-500">PDF only, up to 5MB. Uploading a new file replaces the old one.</p>
+        <p className="mt-5 text-xs text-muted">PDF only, up to 5MB. Uploading a new file replaces the old one.</p>
       </section>
     </>
   );

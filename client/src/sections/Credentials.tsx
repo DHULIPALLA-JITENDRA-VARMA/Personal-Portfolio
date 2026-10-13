@@ -12,7 +12,7 @@ function ListCard({ id, title, number, index, children }: { id: string; title: s
           <h3 id={`${id}-title`} className="text-xl text-cream md:text-2xl">
             {title}.
           </h3>
-          <span className="text-xs tabular-nums text-gray-500">{number}</span>
+          <span className="text-xs tabular-nums text-muted">{number}</span>
         </div>
         <ul className="space-y-5">{children}</ul>
       </section>
