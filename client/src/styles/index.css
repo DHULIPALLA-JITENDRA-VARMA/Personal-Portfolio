@@ -1,0 +1,147 @@
+@import './theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    font-family: var(--font-sans);
+  }
+  html {
+    background: rgb(var(--color-bg));
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply min-h-screen bg-black text-cream antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  section[id] {
+    scroll-margin-top: 1.5rem;
+  }
+  ::selection {
+    background: rgb(var(--color-primary));
+    color: #000;
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-primary));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  .font-serif,
+  .font-serif * {
+    font-family: var(--font-serif);
+  }
+  .eyebrow {
+    @apply text-[10px] uppercase tracking-[0.2em] text-primary sm:text-xs;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-[11px] text-primary/80 sm:text-xs;
+  }
+  .link-arrow {
+    @apply inline-flex items-center gap-1.5 text-sm text-cream transition-colors duration-200 hover:text-white;
+  }
+  .label {
+    @apply mb-1.5 block text-xs text-gray-400;
+  }
+  .input {
+    @apply w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-cream transition-colors duration-200 placeholder:text-gray-600 hover:border-white/20 focus:border-primary/70 focus:outline-none focus:ring-1 focus:ring-primary/50;
+  }
+  .input[aria-invalid='true'] {
+    @apply border-danger/70 focus:border-danger focus:ring-danger/50;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-primary font-bold text-black hover:bg-white;
+  }
+  .btn-ghost {
+    @apply btn border border-white/10 text-cream hover:border-white/30 hover:bg-white/5;
+  }
+  .btn-danger {
+    @apply btn border border-danger/30 text-danger hover:bg-danger/10;
+  }
+  .panel {
+    @apply rounded-2xl border border-white/[0.06] bg-surface;
+  }
+}
+
+@layer utilities {
+  /* Film-grain textures: inline SVG turbulence, so no image request is needed. */
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* Shown behind (and instead of) the hero video when it cannot load or motion is reduced. */
+  .bg-cinematic {
+    background:
+      radial-gradient(120% 80% at 78% 12%, rgb(var(--color-primary) / 0.34) 0%, transparent 55%),
+      radial-gradient(90% 70% at 12% 88%, rgb(120 82 52 / 0.5) 0%, transparent 60%),
+      radial-gradient(60% 50% at 50% 50%, rgb(58 52 44 / 0.9) 0%, transparent 100%),
+      #0b0a09;
+  }
+}
+
+/* Rendered project markdown (the HTML comes from marked + DOMPurify). */
+.prose-portfolio {
+  @apply text-sm leading-relaxed text-primary/80 sm:text-base;
+}
+.prose-portfolio > * + * {
+  @apply mt-4;
+}
+.prose-portfolio h1,
+.prose-portfolio h2,
+.prose-portfolio h3 {
+  @apply mt-10 text-xl font-normal text-cream sm:text-2xl;
+}
+.prose-portfolio h3 {
+  @apply text-lg sm:text-xl;
+}
+.prose-portfolio a {
+  @apply text-cream underline decoration-primary/40 underline-offset-4 hover:decoration-primary;
+}
+.prose-portfolio strong {
+  @apply font-bold text-cream;
+}
+.prose-portfolio ul {
+  @apply list-none space-y-2 pl-0;
+}
+.prose-portfolio ul > li {
+  @apply relative pl-6;
+}
+.prose-portfolio ul > li::before {
+  content: '';
+  @apply absolute left-0 top-[0.7em] h-px w-3 bg-primary/60;
+}
+.prose-portfolio ol {
+  @apply list-decimal space-y-2 pl-5;
+}
+.prose-portfolio code {
+  @apply rounded bg-white/10 px-1.5 py-0.5 text-[0.9em];
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.prose-portfolio pre {
+  @apply overflow-x-auto rounded-xl bg-card p-4;
+}
+.prose-portfolio pre code {
+  @apply bg-transparent p-0;
+}
+.prose-portfolio blockquote {
+  @apply border-l-2 border-primary/40 pl-4 italic;
+}
+.prose-portfolio img {
+  @apply rounded-xl;
+}
